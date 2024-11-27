@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024">
+    <title>Smart Parking Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <style>
+        /* General styles for the page */
+        body, html {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: linear-gradient(135deg, #283c86, #45a247); /* Gradient background */
+            color: #fff;
+        }
+
+        /* Container for the entire content */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 40px 0 20px 0;  /* Added top margin of 40px */
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #f4f4f4;
+            margin-top: 10px;
+        }
+
+        /* Styling for the content section */
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .left-panel {
+            width: 1200px;  /* Increased width of the left panel to 1200px */
+            background-color: rgba(0, 0, 0, 0.7); /* Slightly transparent black background */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            margin-top: 20px;
+        }
+
+        .video-container {
+            margin-bottom: 20px;
+            pointer-events: none; /* Prevent interaction with the video container */
+        }
+
+        iframe {
+            width: 100%;
+            height: 480px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border: none;
+        }
+
+        /* Fullscreen buttons */
+        .full-screen-buttons {
+            margin-top: 20px;
+        }
+
+        .full-screen-btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            margin: 10px;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .full-screen-btn:hover {
+            background-color: #45a049;
+        }
+
+        .full-screen-btn:active {
+            background-color: #388e3c;
+        }
+
+        /* Adjust for mobile */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .left-panel {
+                width: 100%;
+                margin: 0;
+            }
+
+            iframe {
+                height: 300px;
+            }
+
+            .full-screen-btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><br><br><br>SMART PARKING SYSTEM MONITORING</h1>
+        <h2>Enhancing Efficiency using Image Processing</h2>
+
+        <div class="content">
+            <div class="left-panel">
+                <h2>Live Video Parking</h2>
+                <!-- Video Container where tech.html content will be displayed -->
+                <div class="video-container">
+                    <!-- Embed the content of tech.html dynamically -->
+                    <iframe id="techIframe" src="tech.html" width="640" height="480" style="border:none;"></iframe>
+                </div>
+
+                <h3 id="channelTitle">Channel No.1 & Channel No.2</h3>
+
+                <!-- Fullscreen buttons -->
+                <div class="full-screen-buttons">
+                    <button class="full-screen-btn" onclick="toggleFullScreen(1)">Full Screen Channel 1</button>
+                    <button class="full-screen-btn" onclick="toggleFullScreen(2)">Full Screen Channel 2</button>
+                </div>
+                <p>Click Full Screen to view the video in full mode</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fullscreen toggle for individual channels in the iframe content
+        function toggleFullScreen(channelNumber) {
+            // Get the iframe content window
+            const iframe = document.getElementById('techIframe').contentWindow; 
+            
+            // Find the video element inside the iframe based on channel number
+            const videoElement = channelNumber === 1 ? iframe.document.getElementById('liveVideo1') : iframe.document.getElementById('liveVideo2');
+            
+            // Request fullscreen for the video element inside the iframe
+            if (videoElement.requestFullscreen) {
+                videoElement.requestFullscreen();
+            } else if (videoElement.webkitRequestFullscreen) {
+                videoElement.webkitRequestFullscreen();
+            } else if (videoElement.mozRequestFullScreen) {
+                videoElement.mozRequestFullScreen();
+            } else if (videoElement.msRequestFullscreen) {
+                videoElement.msRequestFullscreen();
+            } else {
+                alert("Fullscreen is not supported in your browser.");
+            }
+        }
+    </script>
+</body>
+</html>

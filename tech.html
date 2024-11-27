@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tech Page</title>
+    <style>
+        /* General styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #283c86, #45a247); /* Gradient background */
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px auto;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+            border-radius: 12px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        iframe {
+            width: 45%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .full-screen-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .full-screen-btn:hover {
+            background-color: #45a049;
+        }
+
+        .full-screen-btn:active {
+            background-color: #388e3c;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SMART PARKING - TECH PAGE</h1>
+        <div class="video-container">
+            <!-- Video streams -->
+            <iframe id="liveVideo1" src="http://192.168.162.10" frameborder="0" allow="autoplay; fullscreen"></iframe>
+            <iframe id="liveVideo2" src="http://192.168.162.7" frameborder="0" allow="autoplay; fullscreen"></iframe>
+        </div>
+
+        <div class="video-title" id="channelTitle">Channel No.1 & Channel No.2</div>
+
+        <!-- Full-screen buttons -->
+        <button class="full-screen-btn" onclick="toggleFullScreen(1)">Full Screen Channel 1</button>
+        <button class="full-screen-btn" onclick="toggleFullScreen(2)">Full Screen Channel 2</button>
+    </div>
+
+    <script>
+        // Full-screen toggle for individual channels
+        function toggleFullScreen(channelNumber) {
+            const iframe = channelNumber === 1 ? document.getElementById('liveVideo1') : document.getElementById('liveVideo2');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            } else {
+                alert("Fullscreen is not supported in your browser.");
+            }
+        }
+    </script>
+</body>
+</html>
